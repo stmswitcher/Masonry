@@ -21,12 +21,23 @@ function masonry () {
          * @type Number
          */
         var mwidth = masonry.width();
+        
+        var cols = masonry.children('.col');
+        if (cols.length > 0) {
+            cols.each(function(){
+                $(this).remove();
+            });
+        }
 
         /**
          * Items array
          * @type @exp;masonry@call;children
          */
         var items = masonry.children('.item');
+        
+        items.each(function(){
+            $(this).hide();
+        });
 
         /**
          * Single item width
@@ -59,6 +70,10 @@ function masonry () {
          */
         var items_in_col = Math.round(items_total / items_per_line);
 
+        if (items_in_col < 1) {
+            items_in_col = 1;
+        }
+
         /** For each column in amount of columns */
         for (var column = 1; column <= items_per_line; column++)
         {
@@ -76,9 +91,14 @@ function masonry () {
             for (var i = 0; i < items_in_col; i++)
             {
                 /** Index for item needed */
-                var index = column - 1 + i * items_per_line;
+                if (items_total === 1) {
+                    var index = 0;
+                } else {
+                    var index = column - 1 + i * items_per_line;
+                }
 
-                col.append(items.eq(index));
+                col.append(items.eq(index).clone().show());
+                items.eq(index).hide();
             }
 
             /** Appending a column in a parent block */
