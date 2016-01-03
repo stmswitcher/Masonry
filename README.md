@@ -1,2 +1,2 @@
-# sw-masonry
-Left-to-right masonry blocks
+# Loft to right masonry blocks
+JS-based left to right masonry blocks
